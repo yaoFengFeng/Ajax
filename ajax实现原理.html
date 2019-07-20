@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 原生js实现 ajax        
+        // function ajax() {
+        //     var xmlHttp;
+        //     if (window.XMLHttpRequest) {
+        //         xmlHttp = new XMLHttpRequest;
+        //     } else {
+        //         // 在IE5、IE6之前使用的是 ActiveXObject
+        //         xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+        //     }
+        //     // demo_get.json 中随便写一点json数据
+        //     xmlHttp.open('get', 'demo_get.json', 'true');
+        //     xmlHttp.send();
+
+        //     xmlHttp.onreadystatechange = function() {
+        //         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+        //             //请求成功后的操作 这里只打印获取到的数据
+        //             console.log(JSON.parse(xmlHttp.responseText));
+        //         } else if (xmlHttp.status == 404) {
+        //             console.log('找不到页面');
+        //         }
+        //     }
+        // }
+
+        function ajax(obj) {
+            if (Object.prototype.toString.call(obj) != '[object Object]') {
+                console.log('错误使用');
+            }
+            // 可以默认部分参数
+            obj.type = obj.type || 'get';
+            obj.async = obj.async || 'true';
+            // 获取data中的数据 这里data必须是一个{};
+            if (obj.data && Object.prototype.toString.call(obj) == '[object Object]') {
+                var param = '';
+                /*下面注释是我一开始能想到的方法*/
+                // for (const key in obj.data) {
+                //     if (obj.data.hasOwnProperty(key)) {
+                //         param += `${key}=${obj.data[key]}&`;
+                //     }
+                // }
+                // 去掉最后两个 &&
+                // param = param.slice(0, param.length - 2);
+
+                /*这是链接中'别人家的代码' 别人家的就是优秀*/
+                param = formsParams(obj.data);
+
+                function formsParams(data) {
+                    var arr = [];
+                    for (var prop in data) {
+                        arr.push(prop + "=" + data[prop]);
+                    }
+                    return arr.join("&");
+                }
+
+                var xmlHttp;
+                xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
+                // 不区分大小写
+                var ignoreCaseGet = /get/i;
+                var ignoreCasePost = /post/i;
+                if (ignoreCaseGet.test(obj.type)) { //get 请求方式
+                    obj.url = obj.url + `?${param}`;
+                    xmlHttp.open(obj.type, obj.url, obj.async);
+                    xmlHttp.send();
+                } else if (ignoreCasePost.test(obj.type)) { //post请求方式
+                    xmlHttp.open(obj.type, obj.url, obj.async);
+                    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xmlHttp.send(param);
+                }
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        obj.success(xmlHttp.responseText);
+                    } else {
+                        obj.error();
+                    }
+                }
+            }
+        }
+
+        var obj = {
+            url: 'demo_get.json',
+            data: {
+                username: 'ayf',
+                pwd: '123456'
+            },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function() {
+                console.log('网络错误');
+            }
+        }
+        ajax(obj)
+    </script>
+</body>
+
+</html>
