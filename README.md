@@ -88,7 +88,7 @@ function ajax() {
 }
 ```
 
-## Ajax封装 有点jq中ajax的感觉了（不过jq中是用promise写的）
+## Ajax封装 有点jq中ajax的感觉了
 ```js
 function ajax(obj) {
     if (Object.prototype.toString.call(obj) != '[object Object]') {
@@ -164,5 +164,3 @@ var obj = {
 }
 ajax(obj)
 ```
-
-## Jq中Ajax的封装（等学了promise再来补充）
