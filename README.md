@@ -1,7 +1,7 @@
 # AJAX介绍
 今天学习了一下ajax特此记录一下，先放两参考链接
-<https://blog.csdn.net/weixin_39194176/article/details/80933777>
-<https://blog.csdn.net/c__dreamer/article/details/80456565>
+1. <https://blog.csdn.net/weixin_39194176/article/details/80933777>
+2. <https://blog.csdn.net/c__dreamer/article/details/80456565>
 - Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
 - Ajax 通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
 - 传统的网页（不使用 Ajax）如果需要更新内容，必需重载整个网页面。
