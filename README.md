@@ -1,6 +1,7 @@
 # AJAX介绍
 今天学习了一下ajax特此记录一下，先放两参考链接
 <https://blog.csdn.net/weixin_39194176/article/details/80933777>
+
 <https://blog.csdn.net/c__dreamer/article/details/80456565>
 - Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
 - Ajax 通过在后台与服务器进行少量数据交换，Ajax可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
@@ -46,8 +47,8 @@ xmlHttp.send();
     xmlHttp.send('username=ayf&pwd=123456');
 ```     
 ## 响应处理   
-使用ajax会想用一个事件readystatechange事件：当请求被发送到服务器时，我们需要执行一些基于响应的操作。
-- 当readystatechange改变的时候，就会触发这个事件执行。
+使用ajax会使用一个事件readystatechange事件：当请求被发送到服务器时，我们需要执行一些基于响应的操作。
+- 当readystate改变的时候，就会触发这个事件执行。
 - readyState：请求的状态，返回的是状态码（0 - 4）：0（未初始化）open还没有调用、1（载入）已经调用了send（）正在发送请求、2（载入完成）send方法已经完成  已经收到了全部的响应内容、3（解析）正在解析响应内容、4（完成）响应内容解析完成  可以在客户端用了。
 - status：返回请求的结果码：返回200（成功）、返回404（未找到）、返回5**（5开头）（服务器错误）
 -  responseText 获得字符串形式的响应数据。 
@@ -88,7 +89,7 @@ function ajax() {
 }
 ```
 
-## Ajax封装 有点jq中ajax的感觉了（不过jq中是用promise写的）
+## Ajax封装 有点jq中ajax的感觉了
 ```js
 function ajax(obj) {
     if (Object.prototype.toString.call(obj) != '[object Object]') {
@@ -106,7 +107,7 @@ function ajax(obj) {
         //         param += `${key}=${obj.data[key]}&`;
         //     }
         // }
-        // 去掉最后两个 &&
+        // 去掉最后两个 &
         // param = param.slice(0, param.length - 2);
 
         /*这是链接中'别人家的代码' 别人家的就是优秀*/
@@ -165,4 +166,4 @@ var obj = {
 ajax(obj)
 ```
 
-## Jq中Ajax的封装（等学了promise再来补充）
+## 使用promise来封装ajax（等学会了promise再来）
